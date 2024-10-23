@@ -19,7 +19,7 @@ Before(async () => {
   pageFixture.context = await browser.newContext({
     viewport: { width: 1920, height: 1080 },
   });
-  //   pageFixture.page = await pageFixture.context.newPage();
+  pageFixture.page = await pageFixture.context.newPage();
 });
 
 After(async () => {
