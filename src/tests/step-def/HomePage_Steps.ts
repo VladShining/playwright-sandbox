@@ -19,18 +19,21 @@ When("I click on the contact us button", async () => {
   // await page.pause();
   return "passed";
 });
-When("I type a first name", { timeout: 60000 }, async () => {
-  await pageFixture.page.pause();
-  await pageFixture.page.getByPlaceholder("First Name").fill("Joe");
-  // await pageFixture.page.bringToFront();
-});
+When(
+  "I type a first name {string}",
+  { timeout: 60000 },
+  async (firstName: string) => {
+    await pageFixture.page.pause();
+    await pageFixture.page.getByPlaceholder("First Name").fill(firstName);
+    // await pageFixture.page.bringToFront();
+  }
+);
 When("I type a last name", async () => {
   await pageFixture.page.getByPlaceholder("Last Name").fill("donh");
 });
 When("I type a email address", { timeout: 60000 }, async () => {
   await pageFixture.context.newPage();
-  await pageFixture.page.goto(url);
-  // await pageFixture.context.waitForEvent("page");
+  // await pageFixture.context.waitForEvent("page"); //inutile
   const allPage = await pageFixture.context.pages();
   //assing the first  page
   pageFixture.page = allPage[0];

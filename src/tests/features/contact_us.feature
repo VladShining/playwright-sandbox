@@ -2,7 +2,7 @@ Feature: WebdriverUniversity.com - Contact Us Page
     Scenario: Valid Contact Us Form Submission
         Given I navigate to webdriveruniversity homepage
         When I click on the contact us button
-        And I type a first name
+        And I type a first name "Ruddy"
         And I type a last name
         And I type a email address
         And I type a comment
