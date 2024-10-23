@@ -1,5 +1,6 @@
 Feature: WebdriverUniversity.com - Contact Us Page
-
+  Background: before step
+    Given I navigate
   Scenario: Valid Contact Us Form Submission
     Given I navigate to webdriveruniversity homepage
     When I click on the contact us button
