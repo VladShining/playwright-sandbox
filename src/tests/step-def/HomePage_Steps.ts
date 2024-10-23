@@ -5,7 +5,7 @@ import { pageFixture } from "./hooks/browserContextFeature";
 let browser: Browser;
 let context: any;
 let page: Page;
-const url = "https://www.webdriveruniversity.com";
+const url = "https://www.webdriveruniversity.com/Contact-Us/contactus.html";
 
 Given(
   "I navigate to webdriveruniversity homepage",
@@ -23,7 +23,7 @@ Given(
 );
 
 When("I click on the contact us button", async () => {
-  await page.pause();
+  // await page.pause();
 });
 When("I type a first name", async () => {
   await page.getByPlaceholder("First Name").fill("Joe");
@@ -33,6 +33,8 @@ When("I type a last name", async () => {
   await page.getByPlaceholder("Last Name").fill("donh");
 });
 When("I type a email address", async () => {
+  await pageFixture.context.newPage();
+  await pageFixture.page.goto(url);
   await pageFixture.context.waitForEvent("page");
   const allPage = await pageFixture.context.pages();
   //assing the most recent page
