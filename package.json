@@ -6,6 +6,7 @@
     "start": "npx playwright test --headed",
     "dev": "npx playwright test",
     "report": "npx playwright show-report",
+    "test": "npx cucumber-js && ts-node ./src/index.ts",
     "cucumber": "npx cucumber-js src/tests/features/*.feature --require-module ts-node/register --require src/tests/**/**/*.ts"
   },
   "keywords": [],
