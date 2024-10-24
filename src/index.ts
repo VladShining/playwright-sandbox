@@ -3,6 +3,8 @@ import { exec } from "child_process";
 const common = `./src/tests/features/*.feature \
 --require-module ts-node/register \
 --require ./src/tests/**/**/*.ts \
+-f json:./src/report/report.json \
+--format html:./src/report/report.html \
 --tags "not @ignore"`;
 
 interface ProfileCommands {

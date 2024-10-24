@@ -1,8 +1,36 @@
-import { After, AfterAll, Before, BeforeAll } from "@cucumber/cucumber";
-import { Browser, chromium, Page } from "@playwright/test";
+import { After, AfterAll, Before, BeforeAll, Status } from "@cucumber/cucumber";
+import {
+  Browser,
+  BrowserType,
+  chromium,
+  firefox,
+  Page,
+  webkit,
+} from "@playwright/test";
 import { pageFixture } from "./browserContextFeature";
 
-let browser: Browser, page: Page;
+let browserInstance: Browser | null, page: Page;
+
+import { config as ENV } from "dotenv";
+
+const env = ENV({ path: "/.env" });
+const config = {
+  browser: env.parsed?.UI_AUTO_BROWSER || "chromium",
+};
+
+const browsers: { [key: string]: BrowserType } = {
+  chromium: chromium,
+  firefox: firefox,
+  webkit: webkit,
+};
+
+const initBrowser = async (selectBrowser: string): Promise<Browser> => {
+  const launchBrowser = browsers[selectBrowser];
+  if (!launchBrowser) {
+    throw new Error("invalid b");
+  }
+  return await launchBrowser.launch({ headless: true });
+};
 
 BeforeAll(async () => {
   console.log("\n execute test");
@@ -22,7 +50,20 @@ Before(async () => {
   pageFixture.page = await pageFixture.context.newPage();
 });
 
-After(async () => {
+After(async ({ pickle, result }) => {
+  if (result?.status === Status.FAILED) {
+    if (pageFixture.page) {
+      const shoot = `./report/${pickle.name}.png`;
+      const img = await pageFixture.page.screenshot({
+        path: shoot,
+        type: "png",
+      });
+      //@ts-ignore
+      await this.attach(img, "image/png");
+    } else {
+      console.log("pagefix undefined");
+    }
+  }
   await pageFixture.page.close();
   await browser.close();
 });

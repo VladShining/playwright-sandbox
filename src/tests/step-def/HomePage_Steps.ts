@@ -9,7 +9,7 @@ const url = "https://www.webdriveruniversity.com/Contact-Us/contactus.html";
 
 Given(
   "I navigate to webdriveruniversity homepage",
-  { timeout: 60000 },
+  { timeout: 6000 },
   async () => {
     await pageFixture.page.goto(url);
   }
@@ -21,7 +21,7 @@ When("I click on the contact us button", async () => {
 });
 When(
   "I type a first name {string}",
-  { timeout: 60000 },
+  { timeout: 6000 },
   async (firstName: string) => {
     await pageFixture.page.pause();
     await pageFixture.page.getByPlaceholder("First Name").fill(firstName);
@@ -31,7 +31,7 @@ When(
 When("I type a last name", async () => {
   await pageFixture.page.getByPlaceholder("Last Name").fill("donh");
 });
-When("I type a email address", { timeout: 60000 }, async () => {
+When("I type a email address", { timeout: 6000 }, async () => {
   await pageFixture.context.newPage();
   // await pageFixture.context.waitForEvent("page"); //inutile
   const allPage = await pageFixture.context.pages();
@@ -42,7 +42,7 @@ When("I type a email address", { timeout: 60000 }, async () => {
   await pageFixture.page.setViewportSize({ width: 1920, height: 1080 });
   await pageFixture.page.getByPlaceholder("First Name").fill("edit");
 });
-When("I type a comment", { timeout: 60000 }, async () => {
+When("I type a comment", { timeout: 6000 }, async () => {
   await pageFixture.page.pause();
   return;
 });
